@@ -1,11 +1,11 @@
 
 
 export class WaniKaniApi {
-  static readonly apiURL : String = "https://api.wanikani.com/v2";
-  static readonly token : String = process.env.EXPO_PUBLIC_API_KEY;
+  static readonly apiURL : string = "https://api.wanikani.com/v2";
+  static readonly token : string = process.env.EXPO_PUBLIC_API_KEY as string;
 
 
-  static async getSummary() : Summary {
+  static async getSummary() : Promise<Summary> {
         try {
           const response = await fetch(
               WaniKaniApi.apiURL + '/summary',
@@ -22,7 +22,7 @@ export class WaniKaniApi {
           const json = await response.json();
           const summary : Summary = {
             lessons: json.data.lessons,
-            lessons: json.data.reviews,
+            reviews: json.data.reviews,
             available_lessons_count: json.data.lessons[0].subject_ids.length,
             available_reviews_count: json.data.reviews[0].subject_ids.length,
             next_reviews_at: json.data.next_reviews_at
@@ -30,12 +30,12 @@ export class WaniKaniApi {
 
           return summary;
       } catch (error) {
-          console.error("ERROR" + error);
+          return Promise.reject("Couldn't get summary")
       }
   };
 
 
-  static async getUserProfile() : Profile  {
+  static async getUserProfile() : Promise<Profile>  {
       try {
           const response = await fetch(
               WaniKaniApi.apiURL + '/user/',
@@ -51,9 +51,10 @@ export class WaniKaniApi {
           );
           const json = await response.json();
           //console.log(outJSON);
-          return json.data
+          return json.data as Profile
       } catch (error) {
-          console.error(error);
+          return Promise.reject("Couldn't get user")
+
       }
   };
 

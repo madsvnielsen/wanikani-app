@@ -1,5 +1,4 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Overview from "./src/views/Overview/Overview";
@@ -8,7 +7,12 @@ import { useFonts, Roboto_100Thin, Roboto_400Regular, Roboto_700Bold } from '@ex
 
 
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+
+export type RootStackParamList = {
+  Overview: undefined;
+}
 
 
 
@@ -39,15 +43,7 @@ export default function App() {
       }}>
         <Stack.Screen name="Overview" component={Overview} />
       </Stack.Navigator>
+      <StatusBar/>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

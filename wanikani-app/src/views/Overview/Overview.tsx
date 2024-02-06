@@ -1,18 +1,22 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import {ScrollView, View} from 'react-native';
 import { useState, useEffect } from 'react';
 import UserNameLabel from "./components/UserNameLabel"
 import UserLevelLabel from "./components/UserLevelLabel"
 import StatisticsView from "./components/StatisticsView"
 import styles from "../../styles/styles"
 import {WaniKaniApi} from "../../api/wanikani-api"
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import {RootStackParamList} from "../../../App"
 
 
 
-export default function OverviewScreen({ navigation }) {
 
-  const [summary, setSummary] = useState<Summary>({});
-  const [profile, setProfile] = useState<Profile>({});
+
+export default function OverviewScreen({navigation} : NativeStackScreenProps<RootStackParamList,'Overview'>) {
+
+  const [summary, setSummary] = useState<Summary>({} as Summary);
+  const [profile, setProfile] = useState<Profile>({} as Profile);
 
   useEffect(() => {
     let ignore = false;
