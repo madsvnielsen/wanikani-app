@@ -55,4 +55,12 @@ export default StyleSheet.create({
         padding: 10,
         margin:15,
     },
+    header: {
+        color: "white",
+        width : "100%",
+        textAlign:"center",
+        fontSize: 20,
+        margin:0,
+        fontWeight: "bold"
+    },
 });

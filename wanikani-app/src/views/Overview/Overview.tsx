@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import UserNameLabel from "./components/UserNameLabel"
 import UserLevelLabel from "./components/UserLevelLabel"
 import StatisticsView from "./components/StatisticsView"
+import ReviewForecast from "./components/ReviewForecast"
 import styles from "../../styles/styles"
 import {WaniKaniApi} from "../../api/wanikani-api"
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -56,6 +57,7 @@ export default function OverviewScreen({navigation} : NativeStackScreenProps<Roo
         <View style={styles.scrollView}>
           <UserNameLabel username={profile.username} />
           <StatisticsView lessonCount={summary.available_lessons_count} reviewCount={summary.available_reviews_count} />
+          <ReviewForecast reviews={summary.reviews}/>
           <UserLevelLabel level={profile.level}/>
         </View>
       </ScrollView>
