@@ -1,4 +1,5 @@
 interface Subject{
+    id : number,
     auxiliary_meanings: Array<AuxiliaryMeaning>,
     characters : string | null,
     created_at : Date,

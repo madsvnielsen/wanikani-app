@@ -35,13 +35,23 @@ export default function OverviewScreen({navigation} : NativeStackScreenProps<Roo
         (data : Profile) => {
           if(!ignore){
             setProfile(data)
+            setSubjectAssignmentPairs(data.level)
           }
         }
       )
     }
 
+    async function setSubjectAssignmentPairs(level : number){
+        WaniKaniApi.getSubjectAssignmentPairsAtLevel(level).then((pairs : Array<SubjectAssignmentPair>) => {
+            console.log(pairs[0].subject.meanings)
+        } )
+    }
+
+
     updateUserSummary()
     setUserProfile()
+
+
     return () => {
       ignore = true;
     }

@@ -76,12 +76,73 @@ export class WaniKaniApi {
 
         );
         const json = await response.json();
-        return json.data as Array<Subject>
+        const subjects : Array<Subject> = []
+
+        json.data.forEach(
+            (entry : any) => {
+                const subject : Subject = entry.data
+                subject.id = entry.id
+                subjects.push(subject)
+            }
+        )
+
+        return subjects
     } catch (error) {
         return Promise.reject("Couldn't get subjects")
     }
 };
 
 
+static async getAssignmentsAtLevel(level : number) : Promise<Array<Assignment>>{
+    try {
+        const response = await fetch(
+            WaniKaniApi.apiURL + `/assignments?levels=${level}&subject_types=kanji,radical`,
+            {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + WaniKaniApi.token,
+                }
+            }
 
+        );
+        const json = await response.json();
+        const assignments : Array<Assignment> = []
+        json.data.forEach(
+            (entry : any) => {
+                const assignment : Assignment = entry.data
+                assignments.push(assignment)
+            }
+        )
+        return assignments
+    } catch (error) {
+        return Promise.reject("Couldn't get assignments")
+    }
+};
+
+
+
+
+
+static async getSubjectAssignmentPairsAtLevel(level : number) : Promise<Array<SubjectAssignmentPair>>
+{
+    const assignments : Array<Assignment> = await this.getAssignmentsAtLevel(level);
+    const subjects : Array<Subject> = await this.getSubjectsAtLevel(level);
+
+    const pairs : Array<SubjectAssignmentPair> = []
+    subjects.forEach( (subject : Subject) => {
+        const matchingAssignment : Assignment | undefined = assignments.find((assignment : Assignment) => {
+            return assignment.subject_id == subject.id
+        })
+
+        if(matchingAssignment != undefined){
+            pairs.push({subject : subject, assignment : matchingAssignment} as SubjectAssignmentPair)
+        }
+
+    })
+
+    return pairs
+
+    }
 }
