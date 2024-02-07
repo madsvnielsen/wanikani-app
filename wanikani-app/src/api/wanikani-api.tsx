@@ -59,4 +59,29 @@ export class WaniKaniApi {
   };
 
 
+
+
+  static async getSubjectsAtLevel (level : number) : Promise<Array<Subject>> {
+    try {
+        const response = await fetch(
+            WaniKaniApi.apiURL + `/subjects?levels=${level}&types=kanji,radical`,
+            {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + WaniKaniApi.token,
+                }
+            }
+
+        );
+        const json = await response.json();
+        return json.data as Array<Subject>
+    } catch (error) {
+        return Promise.reject("Couldn't get subjects")
+    }
+};
+
+
+
 }

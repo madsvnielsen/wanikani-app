@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, View, Text} from 'react-native';
 import { useState, useEffect } from 'react';
 import UserNameLabel from "./components/UserNameLabel"
 import UserLevelLabel from "./components/UserLevelLabel"
@@ -18,7 +18,6 @@ export default function OverviewScreen({navigation} : NativeStackScreenProps<Roo
 
   const [summary, setSummary] = useState<Summary>({} as Summary);
   const [profile, setProfile] = useState<Profile>({} as Profile);
-
   useEffect(() => {
     let ignore = false;
     async function updateUserSummary() {
