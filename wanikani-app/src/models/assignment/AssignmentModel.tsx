@@ -1,4 +1,5 @@
-interface Assignment {
+import {SubjectType} from "../subjects/types/SubjectTypes"
+export interface Assignment {
     created_at: Date,
     subject_id : number,
     subject_type: SubjectType,

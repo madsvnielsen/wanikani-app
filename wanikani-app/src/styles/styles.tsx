@@ -63,4 +63,105 @@ export default StyleSheet.create({
         margin:0,
         fontWeight: "bold"
     },
+    subjectContainer: {
+      flexDirection: "row",
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        flexWrap: "wrap",
+        width:"100%",
+        marginHorizontal:"auto"
+    },
+    subjectCard:{
+        height: 35,
+        width: 35,
+        margin: 2,
+        borderRadius: 2,
+        padding:2,
+    },
+    subjectText:{
+        color:"white",
+        textAlign: "center",
+        fontSize: 15
+    },
+    indicatorContainer: {
+        width:"100%",
+        marginHorizontal:"auto",
+        marginVertical: 15,
+        borderRadius: 20,
+
+    },
+    indicatorBar: {
+        borderRadius: 20,
+        height: 30,
+    },
+    indicatorText:{
+        position: "absolute",
+        textAlign:"center",
+        textAlignVertical: "center",
+        height:"100%",
+        width:"100%",
+        color:"#ffffff"
+    },
+      srsIndicatorContainer:{
+          width:"100%",
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          marginTop:4
+      },
+      indicatorCell:{
+          height: 3,
+          width:5,
+
+      },
+      startCell:{
+          borderBottomLeftRadius: 1,
+          borderTopLeftRadius: 1,
+      },
+      endCell:{
+          borderBottomRightRadius: 1,
+          borderTopRightRadius: 1,
+      },
+      activeCell:{
+          backgroundColor:"#60f542"
+      },
+      disabledCell:{
+          backgroundColor:"#818181"
+    },
+    categoryContainer: {
+        flexDirection: "row",
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        flexWrap: "wrap",
+        width:"100%",
+        marginHorizontal:"auto",
+
+    },
+    categoryBox: {
+        backgroundColor : "red",
+        height: 75,
+        width:100,
+        marginVertical: 5,
+        marginRight: 10,
+        borderRadius: 5
+    },
+    categoryNumberText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    height: 50,
+    textAlignVertical: "center",
+    fontWeight: "bold"
+
+},
+  categoryNumberLabel: {
+    color: "#dadada",
+    textAlign: "center",
+    fontSize: 15,
+
+
+  }
+
 });

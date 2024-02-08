@@ -1,4 +1,4 @@
-
+import {Assignment} from "../models/assignment/AssignmentModel"
 
 export class WaniKaniApi {
   static readonly apiURL : string = "https://api.wanikani.com/v2";
@@ -115,6 +115,7 @@ static async getAssignmentsAtLevel(level : number) : Promise<Array<Assignment>>{
                 assignments.push(assignment)
             }
         )
+
         return assignments
     } catch (error) {
         return Promise.reject("Couldn't get assignments")
@@ -130,7 +131,7 @@ static async getSubjectAssignmentPairsAtLevel(level : number) : Promise<Array<Su
     const assignments : Array<Assignment> = await this.getAssignmentsAtLevel(level);
     const subjects : Array<Subject> = await this.getSubjectsAtLevel(level);
 
-    const pairs : Array<SubjectAssignmentPair> = []
+    let pairs : Array<SubjectAssignmentPair> = []
     subjects.forEach( (subject : Subject) => {
         const matchingAssignment : Assignment | undefined = assignments.find((assignment : Assignment) => {
             return assignment.subject_id == subject.id
@@ -141,8 +142,53 @@ static async getSubjectAssignmentPairsAtLevel(level : number) : Promise<Array<Su
         }
 
     })
+    //Sort so radicals are first
+    pairs.sort((itemA ,itemB) => itemA.assignment.subject_type > itemB.assignment.subject_type  ? -1: 1);
+    //Sort so locked kanji is last
+    pairs = [... pairs.filter(pair => pair.assignment.srs_stage !== null),
+               ... pairs.filter(pair => pair.assignment.srs_stage == null)]
 
     return pairs
 
+    }
+
+
+
+
+    static async getAllAssignments() : Promise<Array<Assignment>> {
+        try {
+            const visitPage = async (page : string) =>{
+                const response = await fetch(
+                    page,
+                    {
+                        method: 'GET',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + WaniKaniApi.token,
+                        }
+                    }
+                );
+                return await response.json();
+            }
+
+            let nextPage : string | null = WaniKaniApi.apiURL +"/assignments"
+            let assignments : Array<Assignment>= []
+
+            while(nextPage !== null){
+                let json = await visitPage(nextPage);
+                nextPage = null
+                if(json.pages.next_url !== null){
+                    nextPage = json.pages.next_url
+                }
+                assignments = [...assignments, ...json.data.map((item : any )=> item.data)]
+            }
+
+            console.log(assignments)
+            return assignments
+
+        } catch (error) {
+            return Promise.reject("Couldn't get all assignments")
+        }
     }
 }
