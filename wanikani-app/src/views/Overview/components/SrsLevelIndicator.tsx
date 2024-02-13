@@ -1,6 +1,4 @@
-import {useEffect, useState} from "react";
-import { StyleSheet, Text, View } from 'react-native';
-import {LinearGradient} from "expo-linear-gradient";
+import {View } from 'react-native';
 import styles from "../../../styles/styles"
 
 export default function SrsLevelIndicator(props : {srs_stage : number}) {

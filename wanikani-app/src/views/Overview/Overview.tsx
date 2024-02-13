@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import {ScrollView, View, Text} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import { useState, useEffect } from 'react';
 import UserNameLabel from "./components/UserNameLabel"
 import LevelStatus from "./components/LevelStatus"
@@ -73,7 +73,7 @@ export default function OverviewScreen({navigation} : NativeStackScreenProps<Roo
       <ScrollView >
         <View style={styles.scrollView}>
           <UserNameLabel username={profile.username} />
-          <StatisticsView lessonCount={summary.available_lessons_count} reviewCount={summary.available_reviews_count} />
+          <StatisticsView lessonCount={summary.available_lessons_count} reviewCount={summary.available_reviews_count} onReviewsClicked={() => {navigation.navigate("Reviews")}} />
           <ReviewForecast reviews={summary.reviews}/>
           {profile.level === undefined ? null :<LevelStatus profile={profile}/> }
           <CategorialStatus allAssignments={allAssignments}/>

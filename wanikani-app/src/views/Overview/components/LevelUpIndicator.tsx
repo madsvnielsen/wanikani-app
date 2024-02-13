@@ -2,6 +2,7 @@ import {Text, DimensionValue} from "react-native";
 import styles from "../../../styles/styles"
 import {LinearGradient} from "expo-linear-gradient";
 import {SubjectType} from "../../../models/subjects/types/SubjectTypes"
+import {SubjectAssignmentPair} from "../../../models/SubjectAssignmentPairModel"
 
 
 export default function LevelUpIndicator(props : {currentSubjectAssignments : Array<SubjectAssignmentPair>}) {

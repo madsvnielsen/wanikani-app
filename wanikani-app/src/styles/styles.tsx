@@ -161,6 +161,18 @@ export default StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
 
+  },
+  inputLabelContainer:{
+      width: "100%",
+      height: 50,
+  },
+  inputLabelText:{
+      color: "white",
+      textAlign: "center",
+      textAlignVertical: "center",
+      height: "100%",
+      fontWeight: "200",
+      fontSize: 20
 
   }
 
