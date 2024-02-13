@@ -1,4 +1,4 @@
-import {StyleSheet, Text} from 'react-native';
+import {Text} from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
 import {ReviewItem} from "../../../models/ReviewItemModel"
 import {SubjectType} from "../../../models/subjects/types/SubjectTypes"

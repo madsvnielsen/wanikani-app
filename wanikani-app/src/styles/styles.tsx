@@ -174,6 +174,27 @@ export default StyleSheet.create({
       fontWeight: "200",
       fontSize: 20
 
+  },
+  correctPopUpContainer:{
+    position: "absolute",
+    width : "100%",
+    backgroundColor:" red",
+    textAlign: "center",
+    marginLeft: "auto",
+    marginRight:"auto"
+
+  },
+  correctPopUpCard: {
+    color : "white",
+    marginLeft:"auto",
+    marginRight:"auto",
+    backgroundColor: "green",
+    paddingVertical: 4,
+    paddingHorizontal: 6,
+    margin: 2,
+    borderRadius: 5,
+
+
   }
 
 });
