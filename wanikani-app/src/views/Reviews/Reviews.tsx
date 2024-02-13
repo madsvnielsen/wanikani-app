@@ -10,6 +10,7 @@ import {SubjectType} from "../../models/subjects/types/SubjectTypes"
 import SubjectBanner from "./components/SubjectBanner";
 import ReviewInputLabel from "./components/ReviewInputLabel";
 import ReviewInput from "./components/ReviewInput";
+import ReviewItemDetails from "./components/ReviewItemDetails";
 import {View, Animated} from "react-native"
 
 
@@ -166,6 +167,7 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
               <SubjectBanner reviewItem={currentItem} reviewQueue={queue} popUpAnimState={fadeCorrectAnim}/>
               <ReviewInputLabel reviewItem={currentItem} askReading={askReadingMode} />
               <ReviewInput askReading={askReadingMode} onDone={submitAnswer} answer={answer} setAnswer={setAnswer} lastSubmissionWrong={lastSubmissionWrong}/>
+              <ReviewItemDetails reviewItem={currentItem}/>
               </>
 
             }
