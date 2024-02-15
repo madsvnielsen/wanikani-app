@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Overview from "./src/views/Overview/Overview";
 import Reviews from "./src/views/Reviews/Reviews";
+import {Text} from "react-native"
 
 import { useFonts, Roboto_100Thin, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
@@ -46,6 +47,7 @@ export default function App() {
       }}>
         <Stack.Screen name="Overview" component={Overview} />
         <Stack.Screen name="Reviews" component={Reviews} />
+
       </Stack.Navigator>
       <StatusBar/>
     </NavigationContainer>

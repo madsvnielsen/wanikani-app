@@ -1,4 +1,4 @@
-import { Text, ScrollView,View, StyleSheet } from 'react-native';
+import { Text, ScrollView, View, StyleSheet } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
 import { ReviewItem } from "../../../models/ReviewItemModel"
 import { SubjectType } from "../../../models/subjects/types/SubjectTypes"
@@ -7,10 +7,11 @@ import { useState, useEffect } from 'react'
 import MeaningSection from "./MeaningSection"
 import ReadingSection from "./ReadingSection"
 import ContextSection from "./ContextSection"
+import DetailsSection from "./DetailsSection"
 
 
 
-export default function ReviewItemDetails(props: { reviewItem: ReviewItem, recentMistake : boolean}) {
+export default function ReviewItemDetails(props: { reviewItem: ReviewItem, recentMistake: boolean }) {
   const type: SubjectType = props.reviewItem.subjectAssignment.assignment.subject_type;
 
   const [meaningTabCollapsed, setMeaningTabCollapsed] = useState(true);
@@ -28,24 +29,48 @@ export default function ReviewItemDetails(props: { reviewItem: ReviewItem, recen
     <ScrollView style={styles.detailsContainer}>
 
       <View style={styles.tabContainer}>
-      <MeaningSection reviewItem={props.reviewItem}
-      tabCollapsed={props.recentMistake ? false : meaningTabCollapsed} onToggle={() => {
-        if(canOpen){
-          setMeaningTabCollapsed(!meaningTabCollapsed)
-        }
-      }}/>
-      {type == SubjectType.kanji || type == SubjectType.vocabulary ? <ReadingSection reviewItem={props.reviewItem}
-      tabCollapsed={props.recentMistake ? false : readingTabCollapsed} onToggle={() => {
-        if(canOpen){
-          setReadingTabCollapsed(!readingTabCollapsed)
-        }
-      }}/> : <></>}
-      {type == SubjectType.vocabulary || type == SubjectType.kana_vocabulary ? <ContextSection reviewItem={props.reviewItem}
-      tabCollapsed={props.recentMistake ? false : contextTabCollapsed} onToggle={() => {
-        if(canOpen){
-          setContextTabCollapsed(!contextTabCollapsed)
-        }
-      }}/> : <></>}
+        <DetailsSection
+          reviewItem={props.reviewItem}
+          locked={!canOpen}
+          tabCollapsed={props.recentMistake ? false : meaningTabCollapsed || !canOpen}
+          onToggle={() => {
+            if (canOpen) {
+              setMeaningTabCollapsed(!meaningTabCollapsed)
+            }
+          }}
+          title={"Meaning"}
+        >
+          <MeaningSection reviewItem={props.reviewItem} />
+        </DetailsSection>
+
+        {type == SubjectType.kanji || type == SubjectType.vocabulary ?
+          <DetailsSection
+            reviewItem={props.reviewItem}
+            locked={!canOpen}
+            tabCollapsed={props.recentMistake ? false : readingTabCollapsed || !canOpen}
+            onToggle={() => {
+              if (canOpen) {
+                setReadingTabCollapsed(!readingTabCollapsed)
+              }
+            }}
+            title={"Readings"}
+          >
+            <ReadingSection reviewItem={props.reviewItem} />
+          </DetailsSection> : <></>}
+        {type == SubjectType.vocabulary || type == SubjectType.kana_vocabulary ?
+          <DetailsSection
+            reviewItem={props.reviewItem}
+            locked={!canOpen}
+            tabCollapsed={props.recentMistake ? false : contextTabCollapsed || !canOpen}
+            onToggle={() => {
+              if (canOpen) {
+                setContextTabCollapsed(!contextTabCollapsed)
+              }
+            }}
+            title={"Context"}
+          >
+            <ContextSection reviewItem={props.reviewItem} />
+          </DetailsSection> : <></>}
 
       </View>
 
@@ -74,12 +99,12 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: "#9c9c9c"
   },
-  subLabel : {
+  subLabel: {
     fontWeight: "300",
     fontSize: 18,
     paddingTop: 5
   },
-  collapsibleStyle : {
+  collapsibleStyle: {
     padding: 5,
     marginBottom: 10
   },

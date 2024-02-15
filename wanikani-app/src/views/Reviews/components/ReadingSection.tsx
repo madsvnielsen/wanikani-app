@@ -7,11 +7,13 @@ import Collapsible from 'react-native-collapsible';
 import { useState, useEffect } from 'react'
 import RenderHtml from 'react-native-render-html';
 import wanikaniMarkupToHtml from "./WanikaniMarkupHelper"
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Entypo } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 
 
-
-export default function ReadingSection(props: { reviewItem: ReviewItem, onToggle : () => void, tabCollapsed : boolean}) {
+export default function ReadingSection(props: { reviewItem: ReviewItem}) {
 
   const subject = props.reviewItem.subjectAssignment.subject as KanjiSubject;
 
@@ -20,9 +22,7 @@ export default function ReadingSection(props: { reviewItem: ReviewItem, onToggle
 
 
 
-  return <><Text onPress={props.onToggle} style={styles.sectionHeader}>Readings</Text>
-  <View style={styles.sectionSeperatorLine}></View>
-  <Collapsible collapsed={props.tabCollapsed} style={styles.collapsibleStyle}>
+  return <>
     {primaryReadings.length > 0 ? <Text style={styles.subLabel} >Primary</Text> : <></> }
     {primaryReadings.map((reading: Reading, index : number) => {
       return <View key={index}>
@@ -44,8 +44,7 @@ export default function ReadingSection(props: { reviewItem: ReviewItem, onToggle
             html:wanikaniMarkupToHtml(subject.reading_mnemonic)}}
             contentWidth={useWindowDimensions().width}
        />
-  </Collapsible>
-
+  
 </>
 
   ;

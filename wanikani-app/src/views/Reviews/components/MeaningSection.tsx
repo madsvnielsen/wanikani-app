@@ -7,10 +7,13 @@ import Collapsible from 'react-native-collapsible';
 import { useState, useEffect } from 'react'
 import RenderHtml from 'react-native-render-html';
 import wanikaniMarkupToHtml from "./WanikaniMarkupHelper"
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Entypo } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 
 
-export default function MeaningSection(props: { reviewItem: ReviewItem, onToggle : () => void, tabCollapsed : boolean}) {
+export default function MeaningSection(props: { reviewItem: ReviewItem}) {
 
   const primaryMeanings = props.reviewItem.subjectAssignment.subject.meanings.filter((meaning : Meaning) => meaning.primary)
   const alternativeMeanings = props.reviewItem.subjectAssignment.subject.meanings.filter((meaning : Meaning) => !meaning.primary)
@@ -19,9 +22,7 @@ export default function MeaningSection(props: { reviewItem: ReviewItem, onToggle
 
 
 
-  return <><Text onPress={props.onToggle} style={styles.sectionHeader}>Meaning</Text>
-  <View style={styles.sectionSeperatorLine}></View>
-  <Collapsible collapsed={props.tabCollapsed} style={styles.collapsibleStyle}>
+  return <>
     {primaryMeanings.length > 0 ? <Text style={styles.subLabel} >Primary</Text> : <></> }
     {primaryMeanings.map((meaning: Meaning, index : number) => {
       return <Text style={styles.meaningStyle} key={index}>{meaning.meaning}</Text>
@@ -37,9 +38,7 @@ export default function MeaningSection(props: { reviewItem: ReviewItem, onToggle
             html:wanikaniMarkupToHtml(props.reviewItem.subjectAssignment.subject.meaning_mnemonic)}}
             contentWidth={useWindowDimensions().width}
        />
-  </Collapsible>
-
-</>
+  </>
 
   ;
 
@@ -62,8 +61,8 @@ const styles = StyleSheet.create({
   sectionHeader: {
     textAlignVertical: "center",
     fontWeight: "300",
-    fontSize: 20
-  },
+    fontSize: 20,
+   },
   sectionSeperatorLine: {
     width: "100%",
     height: 1,

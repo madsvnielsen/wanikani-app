@@ -11,6 +11,8 @@ import SubjectBanner from "./components/SubjectBanner";
 import ReviewInputLabel from "./components/ReviewInputLabel";
 import ReviewInput from "./components/ReviewInput";
 import ReviewItemDetails from "./components/ReviewItemDetails";
+import ReviewSessiomSummary from "./components/ReviewSessionSummary";
+
 import {View, Animated} from "react-native"
 
 
@@ -29,6 +31,8 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
   const [answer, setAnswer] = useState('');
 
   const [lastSubmissionWrong, setLastSubmissionWrong] = useState(false)
+
+  const [sessionFinished, setSetSessionFinished] = useState(false)
 
   /*
   askReadingMode : boolean
@@ -50,6 +54,8 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
 
             } as ReviewItem ];
         })
+        const batchSize = 5
+        newQueue = newQueue.splice(0, batchSize)
         setQueue(newQueue)
         const randomIndex = Math.floor(Math.random() * newQueue.length);
         setCurrentItem(newQueue[randomIndex])
@@ -69,13 +75,20 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
         setAnswer("")
         const unfinishedReviews = queue.filter(review => !review.readingComplete || !review.meaningComplete);
         const randomIndex = Math.floor(Math.random() * unfinishedReviews.length);
+
+        if(unfinishedReviews.length == 0){
+          setCurrentItem(undefined)
+          setSetSessionFinished(true)
+          return
+        }
+
         setCurrentItem(unfinishedReviews[randomIndex])
         if(Math.random() > 0.5 && !unfinishedReviews[randomIndex].readingComplete){
             setAskReadingMode(true)
         }else {
             setAskReadingMode(unfinishedReviews[randomIndex].meaningComplete)
         }
-        console.log(queue)
+
     }
 
     const submitAnswer = () => {
@@ -179,9 +192,10 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
               <ReviewInputLabel reviewItem={currentItem} askReading={askReadingMode} />
               <ReviewInput askReading={askReadingMode} onDone={submitAnswer} answer={answer} setAnswer={setAnswer} lastSubmissionWrong={lastSubmissionWrong}/>
               <ReviewItemDetails reviewItem={currentItem} recentMistake={lastSubmissionWrong}/>
-              </>
+            </>
+          }
+          {sessionFinished ? <ReviewSessiomSummary reviewItems={queue}/>: <></>}
 
-            }
 
             </LinearGradient>
 

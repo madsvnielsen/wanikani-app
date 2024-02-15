@@ -9,6 +9,7 @@ import CategorialStatus from "./components/CategorialStatus"
 import styles from "../../styles/styles"
 import {WaniKaniApi} from "../../api/wanikani-api"
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useIsFocused } from '@react-navigation/native';
 import {RootStackParamList} from "../../../App"
 import {Assignment} from "../../models/assignment/AssignmentModel"
 
@@ -20,6 +21,9 @@ export default function OverviewScreen({navigation} : NativeStackScreenProps<Roo
   const [summary, setSummary] = useState<Summary>({} as Summary);
   const [profile, setProfile] = useState<Profile>({} as Profile);
   const [allAssignments, setAllAssignments] = useState<Array<Assignment>>([]);
+  const isFocused = useIsFocused();
+
+
   useEffect(() => {
     let ignore = false;
     async function updateUserSummary() {
@@ -54,17 +58,21 @@ export default function OverviewScreen({navigation} : NativeStackScreenProps<Roo
 
 
 
+    if(isFocused){
+      console.log("Update!")
+      updateUserSummary()
+      setUserProfile()
+      getAllAssignments()
 
-    updateUserSummary()
-    setUserProfile()
-    getAllAssignments()
+    }
+
 
 
     return () => {
       ignore = true;
     }
   }
-    , [])
+    , [isFocused])
 
 
 

@@ -12,21 +12,26 @@ import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
 
-export default function ContextSection(props: { reviewItem: ReviewItem}) {
 
-    const subject = props.reviewItem.subjectAssignment.subject as VocabularySubject;
+export default function DetailsSection(props: { reviewItem: ReviewItem,
+  onToggle : () => void,
+  tabCollapsed : boolean, 
+  locked : boolean,
+  title : String,
+  children : React.ReactNode}) {
+  return <><Text onPress={props.onToggle} style={styles.sectionHeader}>
+  {props.locked ? <Entypo name="lock" size={15} color="black" /> :
+  props.tabCollapsed ? <MaterialIcons name="keyboard-arrow-right" size={15} color="black" /> :
+  <MaterialIcons name="keyboard-arrow-down" size={15} color="black" />
 
+}
+  {props.title}
+  </Text>
+  <View style={styles.sectionSeperatorLine}></View>
+  <Collapsible collapsed={props.tabCollapsed} style={styles.collapsibleStyle}>
+    {props.children}
+  </Collapsible>
 
-
-
-
-  return <>
-    {subject.context_sentences.map((sentence : ContextSentence, index : number) => {
-      return <View style={styles.sentenceCard} key={index}>
-        <Text>{sentence.ja}</Text>
-        <Text style={{fontStyle: 'italic'}}>{sentence.en}</Text>
-      </View>
-    })}
 </>
 
   ;
@@ -77,12 +82,5 @@ const styles = StyleSheet.create({
   meaningStyle: {
     paddingRight: 5,
     fontWeight: "300",
-  },
-  sentenceCard:{
-    padding: 5,
-    marginBottom: 5,
-    borderRadius: 4,
-    borderColor: "black",
-    borderWidth: 1
   }
 })
