@@ -4,7 +4,7 @@ import CurrentLevelSubjectAssignments from "./CurrentLevelSubjectAssignments"
 import LevelUpIndicator from "./LevelUpIndicator"
 import {useEffect, useState} from "react"
 import {WaniKaniApi} from "../../../api/wanikani-api"
-
+import {SubjectAssignmentPair} from "../../../models/SubjectAssignmentPairModel"
 
 export default function LevelStatus(props : {profile : Profile}) {
 

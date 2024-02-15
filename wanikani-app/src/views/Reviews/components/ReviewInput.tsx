@@ -43,7 +43,9 @@ const styles = StyleSheet.create({
         padding: 10,
         width: "100%",
         backgroundColor: "#F2F2F2",
-        textAlign : "center"
+        textAlign : "center",
+        borderBottomColor: "black",
+        borderBottomWidth: 2
 
     },
     mistakeInput: {
@@ -52,7 +54,9 @@ const styles = StyleSheet.create({
         width: "100%",
         backgroundColor: "#d13434",
         textAlign : "center",
-        color: "white"
+        color: "white",
+        borderBottomColor: "black",
+        borderBottomWidth: 2
 
     },
 

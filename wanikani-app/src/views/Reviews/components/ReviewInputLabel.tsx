@@ -12,7 +12,7 @@ export default function ReviewInputLabel(props : {reviewItem : ReviewItem, askRe
         <LinearGradient style={styles.inputLabelContainer} colors={props.askReading ? ['#484848', '#262626'] : ['#313131', 'black']}>
             <Text style={styles.inputLabelText}
 
-            >{type === SubjectType.kanji ? "Kanji" : type === SubjectType.radical ? "Radical" : "Vocabulary"} {props.askReading ? "reading" : "meaning"}</Text>
+            >{type === SubjectType.kanji ? "Kanji" : type === SubjectType.radical ? "Radical" : "Vocabulary"} <Text style={{fontWeight: "500"}}> {props.askReading ? "reading" : "meaning"}</Text></Text>
         </LinearGradient>
     )
 }

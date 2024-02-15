@@ -45,6 +45,8 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
               meaningComplete: false,
               readingComplete: pair.assignment.subject_type === SubjectType.radical ||
               pair.assignment.subject_type === SubjectType.kana_vocabulary,
+              incorrect_meaning_answers : [],
+              incorrect_reading_answers : [],
 
             } as ReviewItem ];
         })
@@ -73,6 +75,7 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
         }else {
             setAskReadingMode(unfinishedReviews[randomIndex].meaningComplete)
         }
+        console.log(queue)
     }
 
     const submitAnswer = () => {
@@ -105,24 +108,32 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
         })
       }
 
-
+      const tempQueue = queue;
+      const item : ReviewItem = tempQueue.findLast((reviewItem : ReviewItem) => {
+         return reviewItem.subjectAssignment.subject.id == currentItem?.subjectAssignment.subject.id
+       }) as ReviewItem
       if(correct){
-        const tempQueue = queue;
-        const item : ReviewItem = tempQueue.findLast((reviewItem : ReviewItem) => {
-           return reviewItem.subjectAssignment.subject.id == currentItem?.subjectAssignment.subject.id
-         }) as ReviewItem
-
         if(askReadingMode){
           item.readingComplete = true;
+
         } else{
           item.meaningComplete = true;
         }
-          animatePopUp()
+        animatePopUp()
          setQueue(tempQueue)
          nextReviewItem()
 
         return
       }
+
+      if(askReadingMode){
+        item.incorrect_reading_answers.push(answer)
+      } else{
+        item.incorrect_meaning_answers.push(answer)
+      }
+
+      setCurrentItem(item)
+      setQueue(tempQueue)
 
       setLastSubmissionWrong(true)
 
@@ -167,7 +178,7 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
               <SubjectBanner reviewItem={currentItem} reviewQueue={queue} popUpAnimState={fadeCorrectAnim}/>
               <ReviewInputLabel reviewItem={currentItem} askReading={askReadingMode} />
               <ReviewInput askReading={askReadingMode} onDone={submitAnswer} answer={answer} setAnswer={setAnswer} lastSubmissionWrong={lastSubmissionWrong}/>
-              <ReviewItemDetails reviewItem={currentItem}/>
+              <ReviewItemDetails reviewItem={currentItem} recentMistake={lastSubmissionWrong}/>
               </>
 
             }

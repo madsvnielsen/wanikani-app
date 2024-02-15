@@ -1,7 +1,7 @@
 import {Text, View} from "react-native";
 import styles from "../../../styles/styles"
 import SubjectAssignmentOverviewCard from "./SubjectAssignmentOverviewCard"
-
+import {SubjectAssignmentPair} from "../../../models/SubjectAssignmentPairModel"
 
 export default function CurrentLevelSubjectAssignments(props : {currentSubjectAssignments : Array<SubjectAssignmentPair>}) {
   return (

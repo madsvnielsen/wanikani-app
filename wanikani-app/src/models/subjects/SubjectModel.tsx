@@ -22,9 +22,9 @@ interface RadicalSubject extends Subject{
 interface KanjiSubject extends Subject{
     amalgamation_subject_ids : Array<number>,
     component_subject_ids : Array<number>,
-    meaning_hint : String,
-    reading_hint : String,
-    reading_mnemonic : String,
+    meaning_hint : string,
+    reading_hint : string,
+    reading_mnemonic : string,
     readings : Array<Reading>,
     visually_similar_subject_ids : Array<number>
 }
