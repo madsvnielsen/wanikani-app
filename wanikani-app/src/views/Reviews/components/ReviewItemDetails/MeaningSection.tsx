@@ -1,12 +1,12 @@
 
-import { ReviewItem } from "../../../models/ReviewItemModel"
+import { ReviewItem } from "../../../../models/ReviewItemModel"
 import { Text, View, StyleSheet, useWindowDimensions } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
-import { SubjectType } from "../../../models/subjects/types/SubjectTypes"
+import { SubjectType } from "../../../../models/subjects/types/SubjectTypes"
 import Collapsible from 'react-native-collapsible';
 import { useState, useEffect } from 'react'
 import RenderHtml from 'react-native-render-html';
-import wanikaniMarkupToHtml from "./WanikaniMarkupHelper"
+import wanikaniMarkupToHtml from "../WanikaniMarkupHelper"
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';

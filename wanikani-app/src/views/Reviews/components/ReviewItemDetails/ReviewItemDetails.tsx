@@ -1,7 +1,7 @@
 import { Text, ScrollView, View, StyleSheet } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
-import { ReviewItem } from "../../../models/ReviewItemModel"
-import { SubjectType } from "../../../models/subjects/types/SubjectTypes"
+import { ReviewItem } from "../../../../models/ReviewItemModel"
+import { SubjectType } from "../../../../models/subjects/types/SubjectTypes"
 import Collapsible from 'react-native-collapsible';
 import { useState, useEffect } from 'react'
 import MeaningSection from "./MeaningSection"

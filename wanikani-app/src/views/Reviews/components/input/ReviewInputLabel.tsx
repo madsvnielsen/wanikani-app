@@ -1,8 +1,8 @@
 import {Text} from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
-import {ReviewItem} from "../../../models/ReviewItemModel"
-import {SubjectType} from "../../../models/subjects/types/SubjectTypes"
-import styles from "../../../styles/styles"
+import {ReviewItem} from "../../../../models/ReviewItemModel"
+import {SubjectType} from "../../../../models/subjects/types/SubjectTypes"
+import styles from "../../../../styles/styles"
 
 
 

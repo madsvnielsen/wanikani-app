@@ -8,10 +8,10 @@ import {SubjectAssignmentPair} from "../../models/SubjectAssignmentPairModel"
 import {ReviewItem} from "../../models/ReviewItemModel"
 import {SubjectType} from "../../models/subjects/types/SubjectTypes"
 import SubjectBanner from "./components/SubjectBanner";
-import ReviewInputLabel from "./components/ReviewInputLabel";
-import ReviewInput from "./components/ReviewInput";
-import ReviewItemDetails from "./components/ReviewItemDetails";
-import ReviewSessiomSummary from "./components/ReviewSessionSummary";
+import ReviewInputLabel from "./components/input/ReviewInputLabel";
+import ReviewInput from "./components/input/ReviewInput";
+import ReviewItemDetails from "./components/ReviewItemDetails/ReviewItemDetails";
+import ReviewSessionSummary from "./ReviewSessionSummary/ReviewSessionSummary";
 
 import {View, Animated} from "react-native"
 
@@ -54,7 +54,7 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
 
             } as ReviewItem ];
         })
-        const batchSize = 5
+        const batchSize = 3
         newQueue = newQueue.splice(0, batchSize)
         setQueue(newQueue)
         const randomIndex = Math.floor(Math.random() * newQueue.length);
@@ -194,10 +194,11 @@ export default function ReviewScreen({navigation} : NativeStackScreenProps<RootS
               <ReviewItemDetails reviewItem={currentItem} recentMistake={lastSubmissionWrong}/>
             </>
           }
-          {sessionFinished ? <ReviewSessiomSummary reviewItems={queue}/>: <></>}
+          {sessionFinished ? <ReviewSessionSummary reviewItems={queue}/>: <></>}
 
 
             </LinearGradient>
 
     );
   }
+
